@@ -66,4 +66,7 @@ data() {
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   font-size: 18px;
 }
+label {
+  cursor: pointer;
+}
 </style>
