@@ -8,7 +8,7 @@
             :id="prefecture.id"
             type="checkbox"
             :checked="prefecture.isChecked"
-            @click="getPopulationData(prefecture.id, prefecture.name)"
+            @click="switchAction(prefecture.id, prefecture.name, prefecture.isChecked)"
           />
           {{ prefecture.name }}
         </label>
@@ -56,7 +56,8 @@ data() {
         console.error(error.message)
       }
     },
-    async getPopulationData(id, name) {
+    /* グラフを追加 */
+    async addPopulationData(id, name) {
       const path = `population/composition/perYear?cityCode=-&prefCode=${id}`
       try {
         const response = await this.getData(path)
@@ -67,6 +68,18 @@ data() {
         this.prefectures[id - 1].isChecked = true;
       } catch (error) {
         console.error(error.message) 
+      }
+    },
+    /* グラフを削除 */
+    removePopulationData(id) {
+      this.$emit("onRemovePopulationData", id);
+      this.prefectures[id - 1].isChecked = false;
+    },
+    switchAction(id,name,isChecked){
+      if(!isChecked){
+        this.addPopulationData(id,name)
+      } else {
+        this.removePopulationData(id)
       }
     }
   }

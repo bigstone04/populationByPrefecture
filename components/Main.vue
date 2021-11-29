@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1 class="header">人口推移グラフ</h1>
-    <Prefecture  @onAddPopulationData="addPopulationData"/>
+    <Prefecture
+      @onAddPopulationData="addPopulationData"
+      @onRemovePopulationData="removePopulationData"
+    />
     <highchart :options="options" />
   </div>
 </template>
