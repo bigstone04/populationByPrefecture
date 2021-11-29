@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="header">都道府県</h1>
+    <h1 class="header">人口推移グラフ</h1>
     <Prefecture  @onAddPopulationData="addPopulationData"/>
     <highchart :options="options" />
   </div>

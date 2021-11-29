@@ -1,15 +1,18 @@
 <template>
-  <div class="prefecture_Area">
-    <div v-for="prefecture in prefectures" :key="prefecture.id">
-      <label :for="prefecture.id">
-        <input
-          :id="prefecture.id"
-          type="checkbox"
-          :checked="prefecture.isChecked"
-          @click="getPopulationData(prefecture.id, prefecture.name)"
-        />
-        {{ prefecture.name }}
-      </label>
+  <div class="prefecture_margin">
+    <h1>都道府県</h1>
+    <div class="prefecture_area">
+      <div v-for="prefecture in prefectures" :key="prefecture.id">
+        <label :for="prefecture.id">
+          <input
+            :id="prefecture.id"
+            type="checkbox"
+            :checked="prefecture.isChecked"
+            @click="getPopulationData(prefecture.id, prefecture.name)"
+          />
+          {{ prefecture.name }}
+        </label>
+      </div>
     </div>
   </div>
 </template>
@@ -74,15 +77,17 @@ data() {
 </script>
 
 <style scoped>
-.prefecture_Area{
+.prefecture_area{
   display: grid;  
-  margin-right: 20px;
-  margin-left: 20px;
   justify-items: start;
   align-items: center;
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   font-size: 18px;
+}
+.prefecture_margin{
+  margin-right: 20px;
+  margin-left: 20px;
 }
 label {
   cursor: pointer;
