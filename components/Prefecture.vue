@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="prefecture_Area">
     <div v-for="prefecture in prefectures" :key="prefecture.id">
       <label :for="prefecture.id">
         <input
@@ -54,3 +54,16 @@ data() {
   }
 }
 </script>
+
+<style scoped>
+.prefecture_Area{
+  display: grid;  
+  margin-right: 20px;
+  margin-left: 20px;
+  justify-items: start;
+  align-items: center;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  font-size: 18px;
+}
+</style>
