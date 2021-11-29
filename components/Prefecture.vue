@@ -31,9 +31,9 @@ data() {
   },
   methods: {
     /* 県の情報を取得 */
-    getPrefectures() {
+    getData(path) {
       const response = axios.get(
-        `https://opendata.resas-portal.go.jp/api/v1/prefectures`,
+        `https://opendata.resas-portal.go.jp/api/v1/${path}`,
         {
           headers: { "X-API-KEY": process.env.RESAS_API_KEY }
         }
@@ -42,8 +42,9 @@ data() {
     },
     /* 県の表示の初期化 */
     async initPrefectures() {
+      const path = "prefectures"
       try {
-        const response = await this.getPrefectures()
+        const response = await this.getData(path)
         this.prefectures = response.data.result.map(val => {
           return {
             id: val.prefCode,
@@ -56,13 +57,9 @@ data() {
       }
     },
     async getPopulationData(id, name) {
+      const path = `population/composition/perYear?cityCode=-&prefCode=${id}`
       try {
-        const response = await axios.get(
-          `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${id}`,
-          {
-            headers: { "X-API-KEY": process.env.RESAS_API_KEY }
-          }
-        )
+        const response = await this.getData(path)
         const population = response.data.result.data[0].data.map(
           val => val.value
         )
