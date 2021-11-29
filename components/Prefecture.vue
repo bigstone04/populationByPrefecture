@@ -6,6 +6,7 @@
           :id="prefecture.id"
           type="checkbox"
           :checked="prefecture.isChecked"
+          @click="getPopulationData(prefecture.id, prefecture.name)"
         />
         {{ prefecture.name }}
       </label>
@@ -49,6 +50,23 @@ data() {
         })
       } catch (error) {
         console.error(error.message)
+      }
+    },
+    async getPopulationData(id, name) {
+      try {
+        const response = await axios.get(
+          `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${id}`,
+          {
+            headers: { "X-API-KEY": process.env.RESAS_API_KEY }
+          }
+        )
+        const population = response.data.result.data[0].data.map(
+          val => val.value
+        )
+        this.$emit("onAddPopulationData", id, name, population);
+        this.prefectures[id - 1].isChecked = true;
+      } catch (error) {
+        console.error(error.message) 
       }
     }
   }
